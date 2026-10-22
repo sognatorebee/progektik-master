@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой профиль</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Nunito', 'Segoe UI', sans-serif;
+            background-color: #fff5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #6b5b62;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 32px;
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 15px 45px rgba(255, 182, 193, 0.25);
+            border: 1px solid #ffe4e1;
+        }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .avatar {
+            width: 70px;
+            height: 70px;
+            background-color: #fce4ec;
+            color: #d67a8e;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        .user-info h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #6b5b62;
+            margin-bottom: 4px;
+        }
+        .user-info p {
+            font-size: 14px;
+            color: #b58e9b;
+        }
+        .balance-card {
+            background-color: #fff0f5;
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 30px;
+            border: 2px dashed #f8bbd0;
+        }
+        .balance-card span {
+            display: block;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #b58e9b;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .balance-card strong {
+            font-size: 36px;
+            font-weight: 800;
+            color: #d67a8e;
+        }
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .btn {
+            padding: 18px;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .btn-history {
+            background-color: #fce4ec;
+            color: #8a5a6b;
+        }
+        .btn-history:hover {
+            background-color: #f8bbd0;
+            transform: translateY(-2px);
+        }
+        .btn-ai {
+            background-color: #f8bbd0;
+            color: #ffffff;
+            box-shadow: 0 8px 20px rgba(248, 187, 208, 0.4);
+        }
+        .btn-ai:hover {
+            background-color: #f48fb1;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(244, 143, 177, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="profile-header">
+            <div class="avatar">
+                {{ user.username[0] }}
+            </div>
+            <div class="user-info">
+                <h1>{{ user.username }}</h1>
+                <p>Личный кабинет</p>
+            </div>
+        </div>
+
+        <div class="balance-card">
+            <span>Ваш баланс</span>
+            <strong>{{ user.balance }} ₽</strong>
+        </div>
+
+        <div class="actions">
+            <button class="btn btn-history" onclick="window.location.href='/history'">
+                История запросов
+                <span>📜</span>
+            </button>
+            <button class="btn btn-ai" onclick="window.location.href='/ai-request'">
+                Запрос в нейросеть
+                <span>✨</span>
+            </button>
+        </div>
+    </div>
+</body>
+</html>
