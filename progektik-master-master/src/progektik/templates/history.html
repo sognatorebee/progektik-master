@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>История операций</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Nunito', 'Segoe UI', sans-serif;
+            background-color: #fff5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #6b5b62;
+            padding: 20px;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 32px;
+            padding: 30px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 15px 45px rgba(255, 182, 193, 0.25);
+            border: 1px solid #ffe4e1;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px dashed #fce4ec;
+        }
+        .header h1 {
+            font-size: 22px;
+            color: #d67a8e;
+            font-weight: 700;
+        }
+        .back-btn {
+            background: #fce4ec;
+            color: #d67a8e;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .back-btn:hover { background: #f8bbd0; color: white; }
+
+        .transaction-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #fffbfb;
+            border: 1px solid #fce4ec;
+            border-radius: 16px;
+            transition: 0.2s;
+        }
+        .transaction-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(255, 182, 193, 0.15);
+        }
+        .tx-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .tx-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: #6b5b62;
+        }
+        .tx-date {
+            font-size: 12px;
+            color: #b58e9b;
+        }
+        .tx-amount {
+            font-weight: 800;
+            font-size: 16px;
+        }
+        .tx-amount.income { color: #66bb6a; }
+        .tx-amount.outcome { color: #ef5350; }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 0;
+            color: #b58e9b;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <h1>История операций</h1>
+            <button class="back-btn" onclick="window.location.href='/dashboard'">← Назад</button>
+        </div>
+
+        <div class="transaction-list">
+            <!-- Примеры транзакций для проверки дизайна -->
+            <div class="transaction-item">
+                <div class="tx-info">
+                    <span class="tx-title">Пополнение баланса</span>
+                    <span class="tx-date">22.10.2026 09:15</span>
+                </div>
+                <span class="tx-amount income">+ 1500 ₽</span>
+            </div>
+            
+            <div class="transaction-item">
+                <div class="tx-info">
+                    <span class="tx-title">Запрос к нейросети</span>
+                    <span class="tx-date">22.10.2026 09:20</span>
+                </div>
+                <span class="tx-amount outcome">- 50 ₽</span>
+            </div>
+
+            <div class="transaction-item">
+                <div class="tx-info">
+                    <span class="tx-title">Запрос к нейросети</span>
+                    <span class="tx-date">22.10.2026 10:05</span>
+                </div>
+                <span class="tx-amount outcome">- 120 ₽</span>
+            </div>
+            
+            <!-- Если операций нет, этот блок покажет заглушку -->
+            <!-- <div class="empty-state">У вас пока нет операций</div> -->
+        </div>
+    </div>
+</body>
+</html>

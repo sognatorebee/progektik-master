@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Nunito', 'Segoe UI', sans-serif;
+            background-color: #fff5f5; /* Очень нежный пастельный фон */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #6b5b62;
+        }
+        .card {
+            background: #ffffff;
+            padding: 45px 35px;
+            border-radius: 28px;
+            box-shadow: 0 10px 40px rgba(255, 182, 193, 0.2);
+            width: 100%;
+            max-width: 380px;
+            border: 1px solid #ffe4e1;
+        }
+        h2 {
+            text-align: center;
+            color: #d67a8e;
+            margin-bottom: 30px;
+            font-size: 26px;
+            font-weight: 700;
+        }
+        .form-group { margin-bottom: 22px; }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #b58e9b;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #fce4ec;
+            border-radius: 14px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+            background-color: #fffbfb;
+            color: #6b5b62;
+        }
+        input:focus {
+            border-color: #f8bbd0;
+            box-shadow: 0 0 0 4px #fce4ec;
+        }
+        button {
+            width: 100%;
+            padding: 16px;
+            background-color: #f8bbd0;
+            color: #8a5a6b;
+            border: none;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #f48fb1;
+            color: #ffffff;
+        }
+        .switch-link {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 14px;
+            color: #b58e9b;
+        }
+        .switch-link a {
+            color: #d67a8e;
+            text-decoration: none;
+            font-weight: 700;
+        }
+        .switch-link a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>С возвращением</h2>
+        <form action="/login" method="POST" id="login-form">
+            <div class="form-group">
+                <label for="username">Email</label>
+                <input type="text" id="username" name="username" placeholder="Ваш email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль</label>
+                <input type="password" id="password" name="password" placeholder="Ваш пароль" required>
+            </div>
+            <button type="submit">Войти</button>
+        </form>
+        <div class="switch-link">
+            Нет аккаунта? <a href="/">Создать</a>
+        </div>
+    </div>
+</body>
+</html>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="../static/script.js"></script>
+</html>
