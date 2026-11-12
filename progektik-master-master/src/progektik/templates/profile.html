@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Nunito', 'Segoe UI', sans-serif;
+            background-color: #fff5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #6b5b62;
+        }
+        .card {
+            background: #ffffff;
+            padding: 45px 35px;
+            border-radius: 28px;
+            box-shadow: 0 10px 40px rgba(255, 182, 193, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid #ffe4e1;
+        }
+        h2 {
+            color: #d67a8e;
+            margin-bottom: 20px;
+            font-size: 26px;
+            font-weight: 700;
+        }
+        p { margin-bottom: 15px; font-size: 16px; }
+        .balance { font-size: 24px; color: #d67a8e; font-weight: bold; }
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 15px;
+            background-color: #f8bbd0;
+            color: #8a5a6b;
+            border: none;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 15px;
+        }
+        .btn:hover { background-color: #f48fb1; color: #ffffff; }
+        .btn-logout { background-color: #ffe4e1; color: #d67a8e; margin-top: 10px; }
+        .btn-logout:hover { background-color: #ffcdd2; color: #b71c1c; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Личный кабинет</h2>
+        <p>Привет, <strong>{{ user.username }}</strong>!</p>
+        <p>Ваш баланс:</p>
+        <p class="balance">{{ user.balance }} руб.</p>
+        <p style="font-size: 14px; color: #b58e9b;">Email: {{ user.email }}</p>
+        
+        <a href="/ai-request" class="btn">Чат с ИИ</a>
+        <a href="/transactions" class="btn" style="background-color: #fce4ec;">История транзакций</a>
+        
+        <form action="/logout" method="POST">
+            <button type="submit" class="btn btn-logout">Выйти</button>
+        </form>
+    </div>
+</body>
+</html>

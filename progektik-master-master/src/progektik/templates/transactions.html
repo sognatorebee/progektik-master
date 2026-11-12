@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>История транзакций</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Nunito', 'Segoe UI', sans-serif;
+            background-color: #fff5f5;
+            padding: 40px 20px;
+            color: #6b5b62;
+        }
+        .card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 28px;
+            max-width: 700px;
+            margin: 0 auto;
+            box-shadow: 0 10px 40px rgba(255, 182, 193, 0.2);
+        }
+        h2 { color: #d67a8e; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; border-bottom: 1px solid #fce4ec; text-align: left; font-size: 14px; }
+        th { color: #b58e9b; font-weight: 600; }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #f8bbd0;
+            color: #8a5a6b;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>История транзакций</h2>
+        <table>
+            <tr>
+                <th>Дата</th>
+                <th>Тип</th>
+                <th>Сумма</th>
+                <th>Баланс после</th>
+            </tr>
+            {% for tx in transactions %}
+            <tr>
+                <td>{{ tx.created_at }}</td>
+                <td>{{ tx.type }}</td>
+                <td>{{ tx.amount }}</td>
+                <td>{{ tx.balance_after }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4" style="text-align: center;">У вас пока нет транзакций.</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <a href="/profile" class="btn">Вернуться в профиль</a>
+    </div>
+</body>
+</html>

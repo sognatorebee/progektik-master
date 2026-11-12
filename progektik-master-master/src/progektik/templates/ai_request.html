@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Запрос к нейросети</title>
+    <title>Чат с ИИ</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -12,158 +12,157 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
             color: #6b5b62;
-            padding: 20px;
         }
-        .card {
+        .chat-container {
             background: #ffffff;
-            border-radius: 32px;
-            padding: 30px;
+            border-radius: 28px;
+            box-shadow: 0 10px 40px rgba(255, 182, 193, 0.2);
             width: 100%;
-            max-width: 450px;
-            box-shadow: 0 15px 45px rgba(255, 182, 193, 0.25);
+            max-width: 500px;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
             border: 1px solid #ffe4e1;
+            overflow: hidden;
         }
-        .header {
+        .chat-header {
+            background-color: #fce4ec;
+            padding: 20px;
+            text-align: center;
+            font-weight: 700;
+            color: #d67a8e;
+            font-size: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px dashed #fce4ec;
         }
-        .header h1 {
-            font-size: 22px;
-            color: #d67a8e;
-            font-weight: 700;
-        }
-        .back-btn {
-            background: #fce4ec;
-            color: #d67a8e;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 10px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .back-btn:hover { background: #f8bbd0; color: white; }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #b58e9b;
-            font-weight: 700;
+        .chat-header a {
             font-size: 14px;
+            color: #8a5a6b;
+            text-decoration: none;
+            background: white;
+            padding: 8px 12px;
+            border-radius: 10px;
         }
-        textarea {
-            width: 100%;
+        .chat-box {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background-color: #fffbfb;
+        }
+        .message {
+            padding: 12px 16px;
+            border-radius: 16px;
+            max-width: 80%;
+            font-size: 15px;
+            line-height: 1.4;
+        }
+        .message.user {
+            background-color: #f8bbd0;
+            color: #8a5a6b;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        .message.ai {
+            background-color: #ffffff;
+            border: 1px solid #fce4ec;
+            color: #6b5b62;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+        .chat-input-area {
+            padding: 20px;
+            background: #ffffff;
+            border-top: 1px solid #fce4ec;
+            display: flex;
+            gap: 10px;
+        }
+        .chat-input-area input {
+            flex: 1;
             padding: 15px;
             border: 2px solid #fce4ec;
-            border-radius: 16px;
+            border-radius: 14px;
             font-size: 15px;
             outline: none;
-            transition: 0.3s;
             background-color: #fffbfb;
             color: #6b5b62;
-            resize: vertical;
-            min-height: 120px;
-            font-family: inherit;
         }
-        textarea:focus {
-            border-color: #f8bbd0;
-            box-shadow: 0 0 0 4px #fce4ec;
-        }
-        .btn-submit {
-            width: 100%;
-            padding: 16px;
+        .chat-input-area input:focus { border-color: #f8bbd0; }
+        .chat-input-area button {
+            padding: 0 20px;
             background-color: #f8bbd0;
             color: #8a5a6b;
             border: none;
-            border-radius: 16px;
+            border-radius: 14px;
             font-size: 16px;
             font-weight: 700;
             cursor: pointer;
             transition: 0.3s;
         }
-        .btn-submit:hover {
-            background-color: #f48fb1;
-            color: white;
-        }
-
-        .response-box {
-            margin-top: 25px;
-            padding: 20px;
-            background: #fffbfb;
-            border: 1px solid #fce4ec;
-            border-radius: 16px;
-            display: none;
-        }
-        .response-box h3 {
-            color: #d67a8e;
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-        .response-box p {
-            font-size: 15px;
-            line-height: 1.5;
-            color: #6b5b62;
-            white-space: pre-wrap;
-        }
+        .chat-input-area button:hover { background-color: #f48fb1; color: #ffffff; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="header">
-            <h1>Запрос к ИИ</h1>
-            <button class="back-btn" onclick="window.location.href='/dashboard'">← Назад</button>
+    <div class="chat-container">
+        <div class="chat-header">
+            Чат с ИИ (Лама)
+            <a href="/profile">← Назад</a>
         </div>
-
-        <form id="ai-form">
-            <div class="form-group">
-                <label for="prompt">Что вы хотите спросить у нейросети?</label>
-                <textarea id="prompt" placeholder="Например: Напиши короткий стих про розовый закат..." required></textarea>
-            </div>
-            <button type="submit" class="btn-submit">Отправить запрос ✨</button>
+        <div class="chat-box" id="chat-box">
+            <div class="message ai">Привет! Я локальная нейросеть. Задай мне любой вопрос!</div>
+        </div>
+        <form class="chat-input-area" id="chat-form">
+            <input type="text" id="message-input" placeholder="Напишите сообщение..." autocomplete="off" required>
+            <button type="submit">Отправить</button>
         </form>
-
-        <div class="response-box" id="response-box">
-            <h3>Ответ нейросети:</h3>
-            <p id="ai-response"></p>
-        </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
     <script>
         $(document).ready(function() {
-            $('#ai-form').on('submit', function(e) {
+            $('#chat-form').on('submit', function(e) {
                 e.preventDefault();
-                const prompt = $('#prompt').val();
-                const responseBox = $('#response-box');
-                const responseText = $('#ai-response');
-                const submitBtn = $('.btn-submit');
+                
+                let message = $('#message-input').val().trim();
+                if (!message) return;
 
-                submitBtn.text('Думаю... ⏳').prop('disabled', true);
-                responseBox.show();
-                responseText.text('Запрос отправлен. Ожидайте ответа...');
+                let chatBox = $('#chat-box');
+
+                chatBox.append(`<div class="message user">${message}</div>`);
+                $('#message-input').val('');
+                chatBox.scrollTop(chatBox[0].scrollHeight);
+
+                let loadingMsg = $('<div class="message ai">Печатает...</div>');
+                chatBox.append(loadingMsg);
+                chatBox.scrollTop(chatBox[0].scrollHeight);
 
                 $.ajax({
-                    url: '/ai-request',
+                    url: '/api/chat',
                     method: 'POST',
                     contentType: 'application/json',
-                    data: JSON.stringify({ prompt: prompt }),
+                    data: JSON.stringify({ message: message }),
                     success: function(data) {
-                        responseText.text(data.response);
+                        loadingMsg.remove();
+                        if (data.reply) {
+                            chatBox.append(`<div class="message ai">${data.reply}</div>`);
+                        } else if (data.error) {
+                            chatBox.append(`<div class="message ai" style="color:red;">Ошибка: ${data.error}</div>`);
+                        }
+                        chatBox.scrollTop(chatBox[0].scrollHeight);
                     },
-                    error: function() {
-                        responseText.text('Произошла ошибка при отправке запроса.');
-                    },
-                    complete: function() {
-                        submitBtn.text('Отправить запрос ✨').prop('disabled', false);
+                    error: function(xhr) {
+                        loadingMsg.remove();
+                        let errorMsg = "Ошибка сервера.";
+                        if (xhr.responseJSON && xhr.responseJSON.error) {
+                            errorMsg = xhr.responseJSON.error;
+                        }
+                        chatBox.append(`<div class="message ai" style="color:red;">${errorMsg}</div>`);
+                        chatBox.scrollTop(chatBox[0].scrollHeight);
                     }
                 });
             });

@@ -1,52 +1,68 @@
+console.log("Скрипт загружен!");
+
 $(document).ready(function() {
-    $('#67').on('submit', function(e) {
+    $('#registration-form').on('submit', function(e) {
         e.preventDefault();
-        let err = 0;
         
-        if ($('#fullname').val().trim() === '' || $('#password').val().trim() === '') {
-            err = 1;
+        let name = $('#fullname').val();
+        let email = $('#email').val();
+        let password = $('#password').val();
+        let confirmPassword = $('#password_confirm').val();
+        let errorDiv = $('#error-message');
+        
+        errorDiv.text("");
+
+        if (!name || !email || !password) {
+            errorDiv.text("Заполните все поля!");
+            return;
         }
 
-        if (err === 0) {
-            $.ajax({
-                url: '/user_register',
-                method: 'POST',
-                data: {
-                    fullname: $('#fullname').val(),
-                    password: $('#password').val(),
-                    email: $('#email').val()
-                },
-                success: function(data) {
-                    if (data.result) {
-                        window.location.href = '/login';
-                    } else {
-                        alert(data.message || "Что-то пошло не так");
-                    }
-                },
-                error: function(xhr) {
-                    if (xhr.responseJSON && xhr.responseJSON.message) {
-                        alert(xhr.responseJSON.message); 
-                    } else {
-                        alert("Ошибка сервера. Проверьте терминал.");
-                    }
-                }
-            });
+        if (password !== confirmPassword) {
+            errorDiv.text("Пароли не совпадают!");
+            return;
         }
+
+        errorDiv.text("Отправка данных...");
+
+        $.ajax({
+            url: '/api/user_register',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                name: name,
+                email: email,
+                password: password
+            }),
+            success: function(data) {
+                if (data.ok) {
+                    window.location.href = '/profile'; 
+                }
+            },
+            error: function(xhr) {
+                if (xhr.responseJSON && xhr.responseJSON.error) {
+                    errorDiv.text(xhr.responseJSON.error); 
+                } else {
+                    errorDiv.text("Ошибка сервера.");
+                }
+            }
+        });
     });
 
     $('#login-form').on('submit', function(e) {
         e.preventDefault();
+        
         $.ajax({
-            url: '/login',
+            url: '/api/login',
             method: 'POST',
-            data: {
-                username: $('#username').val(),
+            contentType: 'application/json',
+            data: JSON.stringify({
+                email: $('#username').val(),
                 password: $('#password').val()
-            },
+            }),
             success: function(response) {
-                window.location.href = '/dashboard';
+                window.location.href = '/profile'; 
             },
-            error: function() {
+            error: function(xhr) {
                 alert("Неверный логин или пароль");
             }
         });
